@@ -8,7 +8,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search } from 'lucide-react';
+import { Search, ChevronDown } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const Components = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -71,11 +77,38 @@ const Components = () => {
                       alt={component.name}
                       className="w-full h-40 object-contain mb-4 rounded"
                     />
-                    <p className="text-sm line-clamp-3">{component.function}</p>
+                    <Accordion type="single" collapsible>
+                      <AccordionItem value="function">
+                        <AccordionTrigger>الوظيفة</AccordionTrigger>
+                        <AccordionContent>
+                          {component.function}
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="issues">
+                        <AccordionTrigger>الأعطال الشائعة</AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="list-disc list-inside space-y-1">
+                            {component.commonIssues.map((issue, index) => (
+                              <li key={index}>{issue}</li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="maintenance">
+                        <AccordionTrigger>نصائح الصيانة</AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="list-disc list-inside space-y-1">
+                            {component.maintenanceTips.map((tip, index) => (
+                              <li key={index}>{tip}</li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </CardContent>
                   <CardFooter>
                     <Button asChild className="w-full">
-                      <Link to={`/component/${component.id}`}>التفاصيل</Link>
+                      <Link to={`/component/${component.id}`}>المزيد من التفاصيل</Link>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -102,11 +135,38 @@ const Components = () => {
                       alt={component.name}
                       className="w-full h-40 object-contain mb-4 rounded"
                     />
-                    <p className="text-sm line-clamp-3">{component.function}</p>
+                    <Accordion type="single" collapsible>
+                      <AccordionItem value="function">
+                        <AccordionTrigger>الوظيفة</AccordionTrigger>
+                        <AccordionContent>
+                          {component.function}
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="issues">
+                        <AccordionTrigger>الأعطال الشائعة</AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="list-disc list-inside space-y-1">
+                            {component.commonIssues.map((issue, index) => (
+                              <li key={index}>{issue}</li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="maintenance">
+                        <AccordionTrigger>نصائح الصيانة</AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="list-disc list-inside space-y-1">
+                            {component.maintenanceTips.map((tip, index) => (
+                              <li key={index}>{tip}</li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </CardContent>
                   <CardFooter>
                     <Button asChild className="w-full">
-                      <Link to={`/component/${component.id}`}>التفاصيل</Link>
+                      <Link to={`/component/${component.id}`}>المزيد من التفاصيل</Link>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -133,24 +193,28 @@ const Components = () => {
                       alt={type.name}
                       className="w-full h-40 object-contain mb-4 rounded"
                     />
-                    <div className="grid grid-cols-2 gap-4 mt-4">
-                      <div>
-                        <h4 className="font-semibold text-green-600 mb-2">المميزات</h4>
-                        <ul className="list-disc list-inside text-sm">
-                          {type.advantages.slice(0, 3).map((adv, index) => (
-                            <li key={index}>{adv}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-red-600 mb-2">العيوب</h4>
-                        <ul className="list-disc list-inside text-sm">
-                          {type.disadvantages.slice(0, 3).map((dis, index) => (
-                            <li key={index}>{dis}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
+                    <Accordion type="single" collapsible>
+                      <AccordionItem value="advantages">
+                        <AccordionTrigger>المميزات</AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="list-disc list-inside space-y-1">
+                            {type.advantages.map((adv, index) => (
+                              <li key={index}>{adv}</li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="disadvantages">
+                        <AccordionTrigger>العيوب</AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="list-disc list-inside space-y-1">
+                            {type.disadvantages.map((dis, index) => (
+                              <li key={index}>{dis}</li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </CardContent>
                 </Card>
               ))}
@@ -170,3 +234,4 @@ const Components = () => {
 };
 
 export default Components;
+
